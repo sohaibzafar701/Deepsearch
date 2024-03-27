@@ -8,7 +8,7 @@
 Effortlessly search the dark web by entering a query, uncovering all related sites.
 ## Installation
 1) ``https://github.com/sohaibzafar701/Deepsearch.git``<br/>
-2) ``cd deepsearch``<br/>
+2) ``cd Deepsearch``<br/>
 3) ``python3 -m pip install -r requirements.txt``<br/>
 4) ``python3 deepsearch.py -h``<br/>
 ## Usage 
