@@ -1,6 +1,6 @@
 # DeepSearch - Navigate the dark web seamlessly from your terminal.
 <p align="center">
-  <img src="https://github.com/josh0xA/darkdump/blob/main/imgs/ddumplogo.png?raw=true"</img>
+  <img src="https://github.com/sohaibzafar701/Deepsearch/blob/main/img/img2.png"</img>
   <br><br>
 </p>
 
