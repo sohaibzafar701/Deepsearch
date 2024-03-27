@@ -12,13 +12,33 @@ from banner import Banner
 note = '''
 Note: 
     This tool is not to be used for illegal purposes.
-    The author is not responsible for any misuse of DeepSearch. 
+    The author is not responsible for any misuse of DeepSearch 
+    in this world and the next. 
+    Stay Blessed. 
 '''
 
 # Define constants
 DEEPSEARCH_API = "https://ahmia.fi/search/?q="
 REQUESTS_SUCCESS_CODE = 200
 MIN_DATA_RETRIEVE_LENGTH = 1
+
+# deepsearch_api = "https://ahmia.fi/search/?q="
+# proxy_api = "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite"
+
+
+#colors
+class Colors:
+    # Console colors
+    W = '\033[0m'  # white (normal)
+    R = '\033[31m'  # red
+    G = '\033[32m'  # green
+    O = '\033[33m'  # orange
+    B = '\033[34m'  # blue
+    P = '\033[35m'  # purple
+    C = '\033[36m'  # cyan
+    GR = '\033[37m'  # gray
+    BOLD = '\033[1m'  # bold
+    END = '\033[0m'  # reset
 
 # Function to retrieve user agent headers
 def get_user_agent():
@@ -33,38 +53,19 @@ def get_user_agent():
     return random.choice(user_agents)
 
 
-
-
-class Configuration:
-    DARKDUMP_ERROR_CODE_STANDARD = -1
-    DARKDUMP_SUCCESS_CODE_STANDARD = 0
-
-    DARKDUMP_MIN_DATA_RETRIEVE_LENGTH = 1
-    DARKDUMP_RUNNING = False
-    DARKDUMP_OS_UNIX_LINUX = False
-    DARKDUMP_OS_WIN32_64 = False
-    DARKDUMP_OS_DARWIN = False
-
-    DARKDUMP_REQUESTS_SUCCESS_CODE = 200
-    DARKDUMP_PROXY = False
-
-    descriptions = []
-    urls = []
-
-    __deepsearch_api__ = "https://ahmia.fi/search/?q="
-    __proxy_api__ = "https://api.proxyscrape.com/v2/?request=displayproxies&protocol=http&timeout=10000&country=all&ssl=all&anonymity=elite"
-
 class Platform(object):
+
     def __init__(self, execpltf):
         self.execpltf = execpltf
 
-    def get_operating_system_descriptor(self):
-        cfg = Configuration()
-
-
+    def operating_system(self):
+        clr = Colors()
+    
+        print(clr.BOLD + "Starting Services in:", clr.G + sys.platform + clr.END )
+        return
+        operating_system()
 
     def clean_screen(self):
-        cfg = Configuration()
         if self.execpltf:
             if sys.platform == "linux" or sys.platform == "linux2" or sys.platform == "darwin":
                 os.system('clear')
@@ -75,7 +76,9 @@ class Platform(object):
 
 
 # Function to perform the search
-def darkdump(query, amount, use_proxy=False):
+def DEEPSEARCH(query, amount, use_proxy=False):
+    
+    clr = Colors()
     headers = {'User-Agent': get_user_agent()}
     proxies = None
     
@@ -105,33 +108,48 @@ def darkdump(query, amount, use_proxy=False):
 
         if len(descriptions) >= MIN_DATA_RETRIEVE_LENGTH:
             for i in range(min(amount, len(descriptions))):
-                print(f"[+] Website: {descriptions[i]}\n\t> Onion Link: {urls[i]}\n")
+                print(f"[{i + 1}]Website: {descriptions[i]}\n{clr.R}Onion Link: {clr.G} {urls[i]}\n\n" + clr.END)
         else:
             print("[!] No results found.")
     else:
         print("[!] Failed to retrieve search results.")
 
+
 # Main function
 def main():
-    cfg = Configuration()
+    clr = Colors() 
     bn = Banner() 
 
     Platform(True).clean_screen()
-    Platform(True).get_operating_system_descriptor()
+    Platform(True).operating_system()
     bn.LoadDeepSearchBanner()
-    print(note)
+    print(clr.O + note + clr.END)
     time.sleep(1.3)
-    parser = argparse.ArgumentParser(description="DeepSearch is a tool for searching the deep web for specific keywords.")
-    parser.add_argument("-q", "--query", help="the keyword or string you want to search on the deep web", type=str, required=True)
-    parser.add_argument("-a", "--amount", help="the amount of results you want to retrieve (default: 10)", type=int, default=5)
-    parser.add_argument("-p", "--proxy", help="use darkdump proxy to increase anonymity", action="store_true")
+
+    parser = argparse.ArgumentParser(description= clr.G + "DeepSearch is a tool for searching the deep web for specific keywords.")
+    parser.add_argument("-q", "--query", help="the keyword or string you want to search on the deep web", type=str)
+    parser.add_argument("-a", "--amount", help="the amount of results you want to retrieve (default: 5)", type=int)
+    parser.add_argument("-p", "--proxy", help="use DEEPSEARCH proxy to increase anonymity", action="store_true") 
     
+    # Parse the arguments
     args = parser.parse_args()
 
-    print("Searching for:", args.query)
-    print("Showing", args.amount, "results...\n")
+    # Check if query is provided, if not, ask the user to enter it
+    if not args.query:
+        args.query = input(clr.B + "Enter the keyword or string you want to search on the deep web: " + clr.END)
 
-    darkdump(args.query, args.amount, args.proxy)
+    # Check if amount is provided, if not, ask the user to enter it
+    if args.amount is None:
+        try:
+            args.amount = int(input(clr.B + "Enter the amount of results you want to retrieve (default: 5): " + clr.END))
+        except ValueError:
+            args.amount = 5
+
+    print(clr.B + "Searching for:", args.query + clr.END)
+    print(clr.B + "Showing", args.amount, "results...\n" + clr.END)
+
+    DEEPSEARCH(args.query, args.amount, args.proxy)
+
 
 if __name__ == "__main__":
     main()
