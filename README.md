@@ -49,7 +49,7 @@ options:
 ```
 ## Visual
 <p align="center">
-  <img src="https://github.com/josh0xA/darkdump/blob/main/imgs/dd_demo.png?raw=true">
+  <img src="https://github.com/sohaibzafar701/Deepsearch/blob/main/img.png">
 </p>
 
 ## Ethical Notice
